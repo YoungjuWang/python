@@ -1,0 +1,20 @@
+#! /usr/bin/python3
+import socket
+import click
+
+@click.command()
+@click.option('-i', '--ip',required=True ,type=str ,help='Destination IP Address for checking')
+@click.option('-p', '--port',required=True ,type=int ,help='Port Number for checking') 
+
+def CheckSocket(ip,port):
+    tcp_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tcp_result = tcp_sock.connect_ex((ip,port))
+
+    if tcp_result == 0:
+       click.echo("Port is open")
+    else:
+       click.echo("Port is not open")
+    tcp_sock.close()
+
+if __name__ == '__main__':
+    CheckSocket()
